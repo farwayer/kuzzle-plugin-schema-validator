@@ -9,6 +9,13 @@
   },
   "license": "WTFPL",
   "repository": "github:farwayer/kuzzle-plugin-schema-validator",
+  "keywords": [
+    "kuzzle",
+    "plugin",
+    "validator",
+    "validation",
+    "joi"
+  ],
   "dependencies": {
     "joi": "^9.1.0"
   },
