@@ -8,6 +8,7 @@
     "email": "farwayer@gmail.com"
   },
   "license": "WTFPL",
+  "repository": "github:farwayer/kuzzle-plugin-schema-validator",
   "dependencies": {
     "joi": "^9.1.0"
   },
