@@ -1,5 +1,18 @@
 # Kuzzle data validation plugin
 
+         ▄▄▄▄▄      ▄███▄      ▄▄▄▄
+      ▄█████████▄▄█████████▄▄████████▄
+     ██████████████████████████████████
+      ▀██████████████████████████████▀
+       ▄███████████████████████████▄
+     ▄███████████████████████████████▄
+    ▀█████████████████████████████████▀
+      ▀██▀        ▀██████▀       ▀██▀
+             ██     ████    ██
+                   ▄████▄
+                   ▀████▀
+                     ▀▀
+
 Simple data validation plugin for [Kuzzle](http://kuzzle.io/) back-end. It's verifying input data before writing it to database or publishing. It is based on [Joi](https://github.com/hapijs/joi) schemas.
 
 ## Installation
