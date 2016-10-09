@@ -19,6 +19,7 @@ Simple data validation plugin for [Kuzzle](http://kuzzle.io/) back-end. It's ver
 
 `kuzzle plugins --install --npmVersion x.y.z kuzzle-plugin-schema-validator`
 
+
 ## Config
 
 Schemas keys are collection names and values are object with path to Joi validator scheme. `options` will be passed to Joi [`validate()`](https://github.com/hapijs/joi/blob/v9.1.0/API.md#validatevalue-schema-options-callback).
@@ -32,6 +33,7 @@ Schemas keys are collection names and values are object with path to Joi validat
     },
     "posts": {
       "path": "relative/path/to/nodejs/working/dir/post",
+      "options": {"context": {"defaultAuthor": "NoNaMe"}},
       "activated": false
     }
   }
@@ -42,9 +44,9 @@ Importing config:
 
 `kuzzle plugins --importConfig config.json kuzzle-plugin-schema-validator`
 
-## Schema example
+## Simple schema
 
-```javascript
+```js
 const Joi = require('joi');
 
 module.exports = Joi.object().keys({
@@ -54,7 +56,61 @@ module.exports = Joi.object().keys({
 });
 ```
 
+## Schema with context generator
+
+```json
+{
+  "schemas": {
+    "posts": {
+      "path": "schemas/post",
+      "options": {"context": {"defaultAuthor": "NoNaMe"}}
+    }
+  }
+}
+```
+
+```js
+const Joi = require('joi');
+
+const Schema = Joi.object().keys({
+  title: Joi.string().required(),
+  text: Joi.string().required(),
+  author: Joi.string().default(Joi.ref('$defaultAuthor'))
+});
+
+function getContext(request, pluginContext) {
+  const repositories = pluginContext.accessors.kuzzle.repositories;
+  
+  const token = getUserToken(request.headers);
+  if (!token) return Promise.resolve();
+
+  return repositories.token.verifyToken(token)
+    .then(tokenData => repositories.user.load(tokenData.userId))
+    .then(user => ({defaultAuthor: user.username}));
+}
+
+function getUserToken(headers) {
+  if (!headers || !headers.authorization) {
+    return null;
+  }
+
+  const res = /^Bearer (.+)$/.exec(headers.authorization);
+  if (!res) return null;
+
+  const token = res[1].trim();
+  return token || null;
+}
+
+module.exports = Schema;
+module.exports.getContext = getContext;
+```
+
+
 ## Changelog
+
+### 0.2.0
+
+  - `getContext()` to provide dynamic schema data
 
 ### 0.1.0
 
