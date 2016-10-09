@@ -21,6 +21,7 @@
   },
   "pluginInfo": {
     "defaultConfig": {
+      "privileged": true,
       "schemas": {}
     }
   }
