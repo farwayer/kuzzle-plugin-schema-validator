@@ -72,13 +72,14 @@ module.exports = Joi.object().keys({
 ```js
 const Joi = require('joi');
 
+
 const Schema = Joi.object().keys({
   title: Joi.string().required(),
   text: Joi.string().required(),
   author: Joi.string().default(Joi.ref('$defaultAuthor'))
 });
 
-function getContext(request, pluginContext) {
+Schema.getContext = (request, pluginContext) => {
   const repositories = pluginContext.accessors.kuzzle.repositories;
   
   const token = getUserToken(request.headers);
@@ -87,7 +88,8 @@ function getContext(request, pluginContext) {
   return repositories.token.verifyToken(token)
     .then(tokenData => repositories.user.load(tokenData.userId))
     .then(user => ({defaultAuthor: user.username}));
-}
+};
+
 
 function getUserToken(headers) {
   if (!headers || !headers.authorization) {
@@ -101,8 +103,8 @@ function getUserToken(headers) {
   return token || null;
 }
 
+
 module.exports = Schema;
-module.exports.getContext = getContext;
 ```
 
 
