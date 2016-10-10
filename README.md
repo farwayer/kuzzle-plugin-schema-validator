@@ -111,7 +111,7 @@ module.exports = Schema;
 
 ### Can I use custom validation?
 
-Yes, check [Joi.extend()](https://github.com/hapijs/joi/blob/v9.1.0/API.md#extendextension) method. Some ready validators [can be find on npm]((https://www.npmjs.com/search?q=joi+extension)).
+Yes, check [Joi.extend()](https://github.com/hapijs/joi/blob/v9.1.0/API.md#extendextension) method. Some ready validators [can be find on npm](https://www.npmjs.com/search?q=joi+extension).
 
 
 ## Changelog
