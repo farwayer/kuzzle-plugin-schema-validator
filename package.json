@@ -1,6 +1,6 @@
 {
   "name": "kuzzle-plugin-schema-validator",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Validate input data before writing it to db or publishing",
   "main": "lib",
   "author": {
@@ -17,7 +17,7 @@
     "joi"
   ],
   "dependencies": {
-    "joi": "^9.1.0"
+    "joi": "^10.0.5"
   },
   "pluginInfo": {
     "defaultConfig": {
